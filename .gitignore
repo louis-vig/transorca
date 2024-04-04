@@ -1,3 +1,4 @@
 selene/
 models/
 resources/
+__pycache__/
