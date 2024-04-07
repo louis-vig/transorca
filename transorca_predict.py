@@ -24,6 +24,7 @@ from selene_sdk.sequences import Genome
 from orca_models import H1esc, H1esc_1M, H1esc_256M
 from orca_utils import (
     genomeplot,
+    genomeplot_1Mb,
     genomeplot_256Mb,
     StructuralChange2,
     process_anno,
@@ -230,6 +231,278 @@ def load_resources(models=["32M"], use_cuda=True, use_memmapgenome=True):
         target_dict_global['h1esc_1m'] = target_h1esc_1m
     else:
         target_available = False
+
+def genomepredict_1Mb(
+    sequence, mchr, mpos=-1, wpos=-1, models=["h1esc"], targets=None, annotation=None, use_cuda=True, nan_thresh=1,
+):
+    """Multiscale prediction for a 32Mb sequence
+    input, zooming into the position specified when generating a series
+    of 32Mb, 16Mb, 8Mb, 4Mb, 2Mb and 1Mb predictions with increasing
+    resolutions (up to 4kb). This function also processes 
+    information used only for plotting including targets and annotation.
+
+    For larger sequence and interchromosomal predictions, you can use 
+    256Mb input with genomepredict_256Mb.
+
+    Parameters
+    ----------
+    sequence : numpy.ndarray
+        One-hot sequence encoding of shape 1 x 32000000 x 4. 
+        The encoding can be generated with `selene_sdk.Genome.sequence_to_encoding()`.
+    mchr : str
+        Chromosome name. This is used for annotation purpose only.
+    mpos : int, optional
+        The coordinate to zoom into for multiscale prediction.
+    wpos : int, optional
+        The coordinate of the center position of the sequence, which is
+        start position + 16000000.
+    models : list(torch.nn.Module or str), optional
+        Models to use. Default is H1-ESC and HFF Orca models.
+    targets : list(numpy.ndarray), optional
+        The observed balanced contact matrices from the
+        32Mb region. Used only for plotting when used with genomeplot. The length and
+        order of the list of targets should match the models specified (default is 
+        H1-ESC and HFF Orca models).
+        The dimensions of the arrays should be 8000 x 8000 (1kb resolution).
+    annotation : str or None, optional
+        List of annotations for plotting. The annotation can be generated with
+        See orca_utils.process_anno and see its documentation for more details.
+    use_cuda : bool, optional
+        Default is True. If False, use CPU.
+    nan_thresh : int, optional
+        Default is 1. Specify the threshold of the proportion of NaNs values 
+        allowed during downsampling for the observed matrices. Only relevant for plotting. 
+        The lower resolution observed matrix value are computed by averaging multiple 
+        bins into one. By default, we allow missing values and only average over the 
+        non-missing values, and the values with more than the specified proprotion 
+        of missing values will be filled with NaN.
+        
+    Returns
+    ----------
+    output : dict
+        Result dictionary that can be used as input for genomeplot. The dictionary
+        has the following keys:
+            - predictions : list(list(numpy.ndarray), list(numpy.ndarray))
+                Multi-level predictions for H1-ESC and HFF cell types.
+            - experiments : list(list(numpy.ndarray), list(numpy.ndarray))
+                Observations for H1-ESC and HFF cell types that matches the predictions.
+                Exists if `targets` is specified.
+            - normmats : list(list(numpy.ndarray), list(numpy.ndarray))
+                Background distance-based expected balanced contact matrices for 
+                H1-ESC and HFF cell types that matches the predictions.
+            - start_coords : list(int)
+                Start coordinates for the prediction at each level.
+            - end_coords : list(int)
+                End coordinates for the prediction at each level.
+            - chr : str
+                The chromosome name.
+            - annos : list(list(...))
+                Annotation information. The format is as outputed by orca_utils.process_anno
+                Exists if `annotation` is specified.
+
+
+    """
+    model_objs = []
+    print(f"Model dict: {model_dict_global}")
+    for m in models:
+        if isinstance(m, torch.nn.Module):
+            model_objs.append(m)
+        else:
+            try:
+                if m in model_dict_global:
+                    model_objs.append(model_dict_global[m])
+            except KeyError:
+                load_resources(models=["1M"], use_cuda=use_cuda)
+                if m in model_dict_global:
+                    model_objs.append(model_dict_global[m])
+    models = model_objs
+    n_models = len(models)
+    print(f"Number of models: {n_models}")
+
+    with torch.no_grad():
+        allpreds = []
+        allstarts = []
+        if targets:
+            alltargets = []
+        if annotation is not None:
+            allannos = []
+
+        for iii, seq in enumerate(
+            [
+                torch.FloatTensor(sequence),
+                torch.FloatTensor(sequence[:, ::-1, ::-1].copy()),
+            ]
+        ):
+            for ii, model in enumerate(models):
+                if targets and iii == 0:
+                    target = targets[ii]
+
+                def eval_step(level, start, coarse_pred=None):
+                    pred = (
+                        model(torch.Tensor(seq.float()).transpose(1, 2).cuda())
+                        if use_cuda
+                        else model(torch.Tensor(seq.float()).transpose(1, 2))
+                    ) 
+                    return pred
+
+                preds = []
+                starts = [0]
+                if targets and iii == 0:
+                    ts = []
+                if annotation is not None and iii == 0:
+                    annos = []
+                for j, level in enumerate([1]):
+                    if j == 0:
+                        pred = eval_step(level, starts[j])
+                    else:
+                        pred = eval_step(
+                            level,
+                            starts[j],
+                            preds[j - 1][
+                                :,
+                                :,
+                                start_index : start_index + 125,
+                                start_index : start_index + 125,
+                            ],
+                        )
+
+                    if targets and iii == 0:
+                        target_r = np.nanmean(
+                            np.nanmean(
+                                np.reshape(
+                                    target[
+                                        :,
+                                        starts[j] : starts[j] + 1000 * level,
+                                        starts[j] : starts[j] + 1000 * level,
+                                    ].numpy(),
+                                    (target.shape[0], 250, 4, 250, 4),
+                                ),
+                                axis=4,
+                            ),
+                            axis=2,
+                        )
+                        target_nan = np.mean(
+                            np.mean(
+                                np.isnan(
+                                    np.reshape(
+                                        target[
+                                            :,
+                                            starts[j] : starts[j] + 1000 * level,
+                                            starts[j] : starts[j] + 1000 * level,
+                                        ].numpy(),
+                                        (target.shape[0], 250, 4, 250, 4),
+                                    )
+                                ),
+                                axis=4,
+                            ),
+                            axis=2,
+                        )
+                        target_r[target_nan > nan_thresh] = np.nan
+                        
+
+                        if target_r.shape[0]==1:
+                            
+                            target_np = np.log(
+                            (target_r + model.epss[level])
+                            / (model.normmats[level] + model.epss[level]))[0, :, :]
+                        else:
+                            
+                            target_np = np.log(
+                            (target_r + model.epss[level])
+                            / (model.normmats[level] + model.epss[level]))
+                        
+                        ts.append(target_np)
+
+                    if annotation is not None and iii == 0:
+                        newstart = starts[j] / 8000.0
+                        newend = (starts[j] + 1000 * level) / 8000.0
+                        anno_r = []
+                        for r in annotation:
+                            if len(r) == 3:
+                                if not (r[0] >= newend or r[1] <= newstart):
+                                    anno_r.append(
+                                        (
+                                            np.fmax((r[0] - newstart) / (newend - newstart), 0,),
+                                            np.fmin((r[1] - newstart) / (newend - newstart), 1,),
+                                            r[2],
+                                        )
+                                    )
+                            else:
+                                if r[0] >= newstart and r[0] < newend:
+                                    anno_r.append(((r[0] - newstart) / (newend - newstart), r[1]))
+                        annos.append(anno_r)
+
+                    if iii == 0:
+                        start_index = int(
+                            np.clip(
+                                np.floor(
+                                    (
+                                        (mpos - level * 1000000 / 4)
+                                        - (wpos - 16000000 + starts[j] * 4000)
+                                    )
+                                    / (4000 * level)
+                                ),
+                                0,
+                                125,
+                            )
+                        )
+                    else:
+                        start_index = int(
+                            np.clip(
+                                np.ceil(
+                                    (
+                                        (wpos + 16000000 - starts[j] * 4000)
+                                        - (mpos + level * 1000000 / 4)
+                                    )
+                                    / (4000 * level)
+                                ),
+                                0,
+                                125,
+                            )
+                        )
+
+                    starts.append(starts[j] + start_index * level)
+                    preds.append(pred)
+
+                allpreds.append(preds)
+                if iii == 0:
+                    if targets:
+                        alltargets.append(ts)
+                    if annotation is not None:
+                        allannos.append(annos)
+                    allstarts.append(starts[:-1])
+
+    output = {}
+    output["predictions"] = [[] for _ in range(n_models)]
+    for i in range(n_models):
+        for j in range(len(allpreds[i])):
+            if allpreds[i][j].shape[1] == 1:
+                output["predictions"][i].append(
+                    allpreds[i][j].cpu().detach().numpy()[0, 0, :, :] * 0.5
+                    + allpreds[i + n_models][j].cpu().detach().numpy()[0, 0, ::-1, ::-1] * 0.5
+                )
+            else:
+                output["predictions"][i].append(
+                    allpreds[i][j].cpu().detach().numpy()[0, :, :, :] * 0.5
+                    + allpreds[i + n_models][j].cpu().detach().numpy()[0, :, ::-1, ::-1] * 0.5
+                )
+    if targets:
+        output["experiments"] = alltargets
+    else:
+        output["experiments"] = None
+    output["start_coords"] = [wpos - 500000 + s * 125 for s in allstarts[0]]
+    output["end_coords"] = [
+        int(output["start_coords"][ii] + 1000000 / 2 ** (ii)) for ii in range(len(output["start_coords"]))
+    ]
+    output["chr"] = mchr
+    if annotation is not None:
+        output["annos"] = allannos[0]
+    else:
+        output["annos"] = None
+    output["normmats"] = [
+        [model.normmats[ii] for ii in [1]] for model in models
+    ]
+    return output
 
 
 def genomepredict(
@@ -529,9 +802,10 @@ def genomepredict(
         output["experiments"] = alltargets
     else:
         output["experiments"] = None
+    print(f"DEBUG: ====== starts: {allstarts}")
     output["start_coords"] = [wpos - 16000000 + s * 4000 for s in allstarts[0]]
     output["end_coords"] = [
-        int(output["start_coords"][ii] + 32000000 / 2 ** (ii)) for ii in range(6)
+        int(output["start_coords"][ii] + 32000000 / 2 ** (ii)) for ii in range(len(output["start_coords"]))
     ]
     output["chr"] = mchr
     if annotation is not None:
@@ -1063,6 +1337,8 @@ def process_region(
         model_labels = ["H1-ESC"]
         if window_radius == 16000000:
             models = ["h1esc"]
+        elif window_radius == 500000:
+            models = ["h1esc_1m"]
         elif window_radius == 128000000:
             models = ["h1esc_256m"]
         else:
@@ -1080,14 +1356,16 @@ def process_region(
             if target == True:
                 if window_radius == 16000000:
                     target = ["h1esc"]
+                elif window_radius == 500000:
+                    target = ["h1esc_1m"]
                 elif window_radius == 128000000:
                     target = ["h1esc_256m"]
             target = [t if isinstance(t, Genomic2DFeatures) else target_dict_global[t] for t in target]
         except KeyError:
             target = False
 
-    if window_radius == 16000000:
-        wpos = coord_clip(mpos, chrlen)
+    if window_radius == 16000000 or window_radius == 500000:
+        wpos = coord_clip(mpos, chrlen, window_radius=window_radius)
         sequence = genome.get_encoding_from_coords(
             mchr, wpos - window_radius, wpos + window_radius
         )[None, :]
@@ -1152,6 +1430,18 @@ def process_region(
             targets=targets,
             use_cuda=use_cuda,
         )
+    elif window_radius == 500000:
+        print(f"Models: {models}")
+        outputs_ref = genomepredict_1Mb(
+            sequence,
+            mchr,
+            mpos,
+            wpos,
+            annotation=anno_scaled,
+            models=models,
+            targets=targets,
+            use_cuda=use_cuda,
+        )
     else:
         outputs_ref = genomepredict(
             sequence, mchr, mpos, wpos, annotation=anno_scaled, models=models, targets=targets, use_cuda=use_cuda,
@@ -1160,6 +1450,15 @@ def process_region(
         if window_radius == 128000000:
             genomeplot_256Mb(
                 outputs_ref, show_coordinates=True, model_labels=model_labels, file=file + ".256m.pdf",
+            )
+        elif window_radius == 500000:
+            genomeplot_1Mb(
+                outputs_ref,
+                show_genes=show_genes,
+                show_tracks=show_tracks,
+                show_coordinates=True,
+                model_labels=model_labels,
+                file=file+".1m.pdf",
             )
         else:
             genomeplot(
