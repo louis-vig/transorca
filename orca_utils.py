@@ -538,6 +538,481 @@ def genomeplot(
     plt.close("all")
 
 
+def genomeplot_1Mb(
+    output,
+    show_genes=False,
+    show_tracks=False,
+    show_coordinates=True,
+    unscaled=False,
+    file=None,
+    cmap=None,
+    unscaled_cmap=None,
+    colorbar=True,
+    maskpred=False,
+    vmin=-1,
+    vmax=2,
+    model_labels = ["H1-ESC"]
+):
+    """
+    Plot the multiscale prediction outputs for 32Mb output.
+
+    Parameters
+    ----------
+    output : dict
+        The result dictionary to plot as returned by `genomepredict_256Mb`.
+    show_genes : bool, optional
+        Default is False. If True, plot the retrieved
+        gene annotations corresponding to all windows used for the multiscale prediction.
+    show_tracks : bool, optional
+        Default is False. If True, plot the retrieved
+        chromatin tracks for CTCF, chromatin accessibility and histone marks 
+        for all windows used for the multiscale prediction. 
+    show_coordinates : bool, optional
+        Default is True. If True, annotate the generated plot with the 
+        genome coordinates.
+    unscaled : bool, optional
+        Default is False. If True, plot the predictions and observations
+        without normalizing by distance-based expectation.
+    file : str or None, optional
+        Default is None. The output file prefix. No output file is generated
+        if set to None.
+    cmap : str or None, optional
+        Default is None. The colormap for plotting scaled interactions (log
+        fold over distance-based background). If None, use colormaps.hnh_cmap_ext5.
+    unscaled_cmap : str or None, optional
+        Default is None. The colormap for plotting unscaled interactions (log
+        balanced contact score). If None, use colormaps.hnh_cmap_ext5.
+    colorbar : bool, optional
+        Default is True. Whether to plot the colorbar.
+    maskpred : bool, optional
+        Default is True. If True, the prediction heatmaps are masked at positions
+        where the observed data have missing values when observed data are provided
+        in output dict.
+    vmin : int, optional
+        Default is -1. The lowerbound value for heatmap colormap.
+    vmax : int, optional
+        Default is 2. The upperbound value for heatmap colormap.
+    model_labels : list(str), optional
+        Model labels for plotting. Default is ["H1-ESC", "HFF"].
+
+    Returns
+    -------
+    None
+    """
+    if cmap is None:
+        cmap = hnh_cmap_ext5
+    if unscaled_cmap is None:
+        unscaled_cmap = hnh_cmap_ext5
+
+    if output["predictions"][0][0].ndim == 3:
+        predictions = []
+        for modeli in range(len(output["predictions"])):
+            ndims = output["predictions"][modeli][0].shape[0]
+            predictions += [[output['predictions'][modeli][i][j] for i in range(6)] for j in range(ndims)]
+        output["predictions"] = predictions
+
+    n_axes = len(output["predictions"]) 
+
+    if output["experiments"] is not None:
+        n_axes += len(output["predictions"])
+
+
+
+    fig, all_axes = plt.subplots(figsize=(36, 6 * n_axes), nrows=n_axes, ncols=1)
+
+    for ax in all_axes:
+        ax.get_xaxis().set_ticks([])
+        ax.get_yaxis().set_ticks([])
+
+    for i, xlabel in enumerate(["1Mb"]):
+        all_axes[-1].set_xlabel(xlabel, labelpad=20, fontsize=20, weight="black")
+
+    
+    if output["experiments"] is not None:
+        current_axis = 0
+        for label in model_labels:
+            for suffix in [" Pred", " Obs"]:
+                all_axes[current_axis].set_ylabel(
+                    label + suffix,
+                    labelpad=20,
+                    fontsize=20,
+                    weight="black",
+                    rotation="horizontal",
+                    ha="right",
+                    va="center",
+                )
+                current_axis += 1
+    else:
+        current_axis = 0
+        for label in model_labels:
+            for suffix in [" Pred"]:
+                all_axes[current_axis].set_ylabel(
+                    label + suffix,
+                    labelpad=20,
+                    fontsize=20,
+                    weight="black",
+                    rotation="horizontal",
+                    ha="right",
+                    va="center",
+                )
+                current_axis += 1
+
+    current_row = 0
+    for model_i in range(len(output["predictions"])):
+        ax = all_axes[current_row]
+        ii = 0
+        s = int(output["start_coords"][ii])
+        e = int(output["end_coords"][ii])
+        regionstr = output["chr"] + ":" + str(s) + "-" + str(e)
+        if show_coordinates:
+            ax.set_title(regionstr, fontsize=14, pad=4)
+        if unscaled:
+            plotmat = output["predictions"][model_i][ii] + np.log(output["normmats"][model_i][ii])
+            im = ax.imshow(
+                plotmat,
+                interpolation="none",
+                cmap=unscaled_cmap,
+                vmax=np.max(np.diag(plotmat, k=1)),
+            )
+        else:
+            plotmat = output["predictions"][model_i][ii]
+            im = ax.imshow(plotmat, interpolation="none", cmap=cmap, vmin=vmin, vmax=vmax)
+
+        if output["annos"]:
+            for r in output["annos"][ii]:
+                if len(r) == 3:
+                    _draw_region(ax, r[0], r[1], r[2], plotmat.shape[1])
+                elif len(r) == 2:
+                    _draw_site(ax, r[0], r[1], plotmat.shape[1])
+            ax.axis([-0.5, plotmat.shape[1] - 0.5, -0.5, plotmat.shape[1] - 0.5])
+            ax.invert_yaxis()
+
+        if maskpred:
+            if output["experiments"]:
+                ax.imshow(
+                    np.isnan(output["experiments"][0][ii]), interpolation="none", cmap=bwcmap,
+                )
+
+        current_row += 1
+
+        if output["experiments"]:
+            ax = all_axes[current_row]
+            ii = 0
+            s = int(output["start_coords"][ii])
+            e = int(output["end_coords"][ii])
+            regionstr = output["chr"] + ":" + str(s) + "-" + str(e)
+            if show_coordinates:
+                ax.set_title(regionstr, fontsize=14, pad=4)
+            if unscaled:
+                plotmat = output["experiments"][model_i][ii] + np.log(output["normmats"][model_i][ii])
+                im = ax.imshow(
+                    plotmat,
+                    interpolation="none",
+                    cmap=unscaled_cmap,
+                    vmax=np.max(np.diag(plotmat, k=1)),
+                )
+            else:
+                plotmat = output["experiments"][model_i][ii]
+                im = ax.imshow(plotmat, interpolation="none", cmap=cmap, vmin=vmin, vmax=vmax)
+            if output["annos"]:
+                for r in output["annos"][ii]:
+                    if len(r) == 3:
+                        _draw_region(ax, r[0], r[1], r[2], plotmat.shape[1])
+                    elif len(r) == 2:
+                        _draw_site(ax, r[0], r[1], plotmat.shape[1])
+                ax.axis([-0.5, plotmat.shape[1] - 0.5, -0.5, plotmat.shape[1] - 0.5])
+                ax.invert_yaxis()
+            current_row += 1
+
+   
+
+    if colorbar:
+        fig.colorbar(im, ax=all_axes.tolist(), fraction=0.02, shrink=0.1, pad=0.005)
+
+    if show_genes:
+        for p in [
+            ORCA_PATH + "/resources/hg38.refGeneSelectMANE.bed.gz",
+            ORCA_PATH + "/resources/hg38.refGeneSelectMANE.bed.gz.tbi",
+        ]:
+            if not os.path.exists(p):
+                show_genes = False
+                print(
+                    "`show_genes` is turned off because resource file " + p + " is not available."
+                )
+                break
+    if show_tracks:
+        for p in [
+            ORCA_PATH + "/extra/H1_CTCF_ENCFF473IZV.bigWig",
+            ORCA_PATH + "/extra/H1_RAD21_ENCFF913JGA.bigWig",
+            ORCA_PATH + "/extra/H1_DNase_ENCFF131HMO.bigWig",
+            ORCA_PATH + "/extra/H1_H3K4me3_ENCFF623ZAW.bigWig",
+            ORCA_PATH + "/extra/H1_POLR2A_ENCFF379IRQ.bigWig",
+            ORCA_PATH + "/extra/H1_H3K27ac_ENCFF423TVA.bigWig",
+            ORCA_PATH + "/extra/H1_H3K4me1_ENCFF584AVI.bigWig",
+            ORCA_PATH + "/extra/H1_H3K36me3_ENCFF141YAA.bigWig",
+            ORCA_PATH + "/extra/H1_H3K27me3_ENCFF912ZUR.bigWig",
+            ORCA_PATH + "/extra/H1_H3K9me3_ENCFF752UGN.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_CTCF_ENCFF761RHS.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_DNase_ENCFF113YFF.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K4me3_ENCFF442WNT.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K27ac_ENCFF078JZB.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K4me1_ENCFF449DEA.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K36me3_ENCFF954UKB.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K27me3_ENCFF027GWJ.bigWig",
+            ORCA_PATH + "/extra/foreskin_fibroblast_H3K9me3_ENCFF946TXL.bigWig",
+        ]:
+            if not os.path.exists(p):
+                show_tracks = False
+                print(
+                    "`show_tracks` is turned off because resource file " + p + " is not available."
+                )
+                break
+    if show_genes or show_tracks:
+        browser_tracks = (
+            """
+        [spacer]
+        height = 0.5
+        [x-axis]
+        where = top
+        fontsize = 12
+        [spacer]
+        height = 0.05
+        """
+            + (
+                """
+        [test gtf collapsed]
+        file = {ORCA_PATH}/resources/hg38.refGeneSelectMANE.bed.gz
+        height = 25
+        merge_transcripts = true
+        prefered_name = gene_name
+        max_labels = 10000
+        fontsize = 9
+        file_type = bed
+        gene_rows = 40
+        display = stacked
+        """.format(
+                    ORCA_PATH=ORCA_PATH
+                )
+                if show_genes
+                else ""
+            )
+            + (
+                """
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_CTCF_ENCFF473IZV.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-CTCF
+        summary_method = mean
+        file_type = bigwig
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_RAD21_ENCFF913JGA.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-RAD21
+        summary_method = mean
+        file_type = bigwig
+
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_DNase_ENCFF131HMO.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-DNase
+        summary_method = mean
+        file_type = bigwig
+        color = #2A6D8F
+
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K4me3_ENCFF623ZAW.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K4me3
+        summary_method = mean
+        file_type = bigwig
+        color = #E76F51
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_POLR2A_ENCFF379IRQ.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-POL2
+        summary_method = mean
+        file_type = bigwig
+        color = #E76F51
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K27ac_ENCFF423TVA.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K27ac
+        summary_method = mean
+        file_type = bigwig
+        color = #F4A261
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K4me1_ENCFF584AVI.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K4me1
+        summary_method = mean
+        file_type = bigwig
+        color = #F4A261
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K36me3_ENCFF141YAA.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K36me3
+        summary_method = mean
+        file_type = bigwig
+        color = #E9C46A
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K27me3_ENCFF912ZUR.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K27me3
+        summary_method = mean
+        file_type = bigwig
+        color = #264653
+
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/H1_H3K9me3_ENCFF752UGN.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = H1-H3K9me3
+        summary_method = mean
+        file_type = bigwig
+        color = #264653
+        
+        [spacer]
+        height = 2
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_CTCF_ENCFF761RHS.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-CTCF
+        summary_method = mean
+        file_type = bigwig
+
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_DNase_ENCFF113YFF.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-DNase
+        summary_method = mean
+        file_type = bigwig
+        color = #2A6D8F
+
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K4me3_ENCFF442WNT.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K4me3
+        summary_method = mean
+        file_type = bigwig
+        color = #E76F51
+
+
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K27ac_ENCFF078JZB.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K27ac
+        summary_method = mean
+        file_type = bigwig
+        color = #F4A261
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K4me1_ENCFF449DEA.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K4me1
+        summary_method = mean
+        file_type = bigwig
+        color = #F4A261
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K36me3_ENCFF954UKB.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K36me3
+        summary_method = mean
+        file_type = bigwig
+        color = #E9C46A
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K27me3_ENCFF027GWJ.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K27me3
+        summary_method = mean
+        file_type = bigwig
+        color = #264653
+
+        
+        [bigwig file test]
+        file = {ORCA_PATH}/extra/foreskin_fibroblast_H3K9me3_ENCFF946TXL.bigWig
+        # height of the track in cm (optional value)
+        height = 2
+        title = HFF-H3K9me3
+        summary_method = mean
+        file_type = bigwig
+        color = #264653
+    
+        """.format(
+                    ORCA_PATH=ORCA_PATH
+                )
+                if show_tracks
+                else ""
+            )
+        )
+        filename = str(uuid.uuid4())
+        with open(f"/dev/shm/{filename}.ini", "w") as fh:
+            fh.write(browser_tracks)
+
+        gbfigs = []
+        for ii, label in enumerate(["1Mb"]):
+            regionstr = (
+                output["chr"]
+                + ":"
+                + str(int(output["start_coords"][ii]))
+                + "-"
+                + str(int(output["end_coords"][ii]))
+            )
+            
+            args = (
+                f"--tracks /dev/shm/{filename}.ini --region {regionstr} "
+                "--trackLabelFraction 0.03 --width 40 --dpi 10 "
+                f"--outFileName /dev/shm/{filename}.png --title {label}".split()
+            )
+            _ = pygenometracks.plotTracks.main(args)
+            gbfigs.append(plt.gcf())
+
+            os.remove(f"/dev/shm/{filename}.png")
+        os.remove(f"/dev/shm/{filename}.ini")
+
+        if file is not None:
+            with PdfPages(file) as pdf:
+                pdf.savefig(fig, dpi=300)
+                plt.show()
+            with PdfPages((".").join(file.split(".")[:-1]) + ".anno.pdf") as pdf:
+                for fig in reversed(gbfigs):
+                    pdf.savefig(fig)
+    else:
+        if file is not None:
+            with PdfPages(file) as pdf:
+                pdf.savefig(fig, dpi=300)
+    plt.close("all")
+
+
 def genomeplot_256Mb(
     output,
     show_coordinates=True,
