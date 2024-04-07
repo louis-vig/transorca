@@ -802,7 +802,6 @@ def genomepredict(
         output["experiments"] = alltargets
     else:
         output["experiments"] = None
-    print(f"DEBUG: ====== starts: {allstarts}")
     output["start_coords"] = [wpos - 16000000 + s * 4000 for s in allstarts[0]]
     output["end_coords"] = [
         int(output["start_coords"][ii] + 32000000 / 2 ** (ii)) for ii in range(len(output["start_coords"]))
