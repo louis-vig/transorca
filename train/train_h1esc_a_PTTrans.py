@@ -27,6 +27,7 @@ os.makedirs("./models/", exist_ok=True)
 os.makedirs("./png/", exist_ok=True)
 
 if __name__ == "__main__":
+    print("Training transformer model.")
     if len(sys.argv) > 1 and sys.argv[1] == "--swa":
         print("Training in SWA mode.")
         use_swa = True
