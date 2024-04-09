@@ -516,3 +516,374 @@ class PTNet(nn.Module):
         else:
             return cur
 
+class PTTransNet(nn.Module):
+    def __init__(self, num_1d=None):
+        """
+        Orca 1Mb model with trans. decoder. The trained model weighted can be
+        loaded into Encoder and Decoder_1m modules.
+
+        Parameters
+        ----------
+        num_1d : int or None, optional
+            The number of 1D targets used for the auxiliary
+            task of predicting ChIP-seq profiles.
+        """
+        super(PTTransNet, self).__init__()
+
+        self.lconv1 = nn.Sequential(
+            nn.Conv1d(4, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+            nn.Conv1d(64, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+        )
+        self.lconv1.requires_grad_(False)
+
+        self.conv1 = nn.Sequential(
+            nn.Conv1d(64, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(64, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+            nn.ReLU(inplace=True),
+        )
+        self.conv1.requires_grad_(False)
+
+        self.lconv2 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(64, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+            nn.Conv1d(96, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+        )
+        self.lconv2.requires_grad_(False)
+
+        self.conv2 = nn.Sequential(
+            nn.Conv1d(96, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(96, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+            nn.ReLU(inplace=True),
+        )
+        self.conv2.requires_grad_(False)
+
+        self.lconv3 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(96, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+        )
+        self.lconv3.requires_grad_(False)
+
+        self.conv3 = nn.Sequential(
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+        self.conv3.requires_grad_(False)
+
+        self.lconv4 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+        )
+        self.lconv4.requires_grad_(False)
+
+        self.conv4 = nn.Sequential(
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+        self.conv4.requires_grad_(False)
+
+        self.lconv5 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+        )
+        self.lconv5.requires_grad_(False)
+
+        self.conv5 = nn.Sequential(
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+        self.conv5.requires_grad_(False)
+
+        self.lconv6 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+        )
+        self.lconv6.requires_grad_(False)
+
+        self.conv6 = nn.Sequential(
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+        self.conv6.requires_grad_(False)
+
+        self.lconv7 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+        )
+        self.lconv7.requires_grad_(False)
+
+        self.conv7 = nn.Sequential(
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+        self.conv7.requires_grad_(False)
+
+        self.deconv = nn.Sequential(
+            nn.Dropout(p=0.1),
+            nn.Conv1d(128, 32, kernel_size=3, padding=1),
+            nn.BatchNorm1d(32),
+            nn.Conv1d(32, 64, kernel_size=3, padding=1),
+            nn.BatchNorm1d(64),
+        )
+
+        self.transform = nn.Sequential(
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=64,
+                nhead=8,
+                dim_feedforward=64,
+                dropout=0.4,
+                batch_first=True,
+            ),
+        )
+
+        self.final = nn.Sequential(
+            nn.Conv2d(64, 5, kernel_size=(1, 1), padding=0),
+            nn.BatchNorm2d(5),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(5, 1, kernel_size=(1, 1), padding=0),
+        )
+        if num_1d is not None:
+            self.final_1d = nn.Sequential(
+                nn.Conv1d(128, 128, kernel_size=1, padding=0),
+                nn.BatchNorm1d(128),
+                nn.ReLU(inplace=True),
+                nn.Conv1d(128, num_1d, kernel_size=1, padding=0),
+                nn.Sigmoid(),
+            )
+        self.num_1d = num_1d
+
+    def forward(self, x):
+        """Forward propagation of a batch."""
+
+        def run0(x, dummy):
+            lout1 = self.lconv1(x)
+            out1 = self.conv1(lout1)
+            lout2 = self.lconv2(out1 + lout1)
+            out2 = self.conv2(lout2)
+            lout3 = self.lconv3(out2 + lout2)
+            out3 = self.conv3(lout3)
+            lout4 = self.lconv4(out3 + lout3)
+            out4 = self.conv4(lout4)
+            lout5 = self.lconv5(out4 + lout4)
+            out5 = self.conv5(lout5)
+            lout6 = self.lconv6(out5 + lout5)
+            out6 = self.conv6(lout6)
+            lout7 = self.lconv7(out6 + lout6)
+            out7 = self.conv7(lout7)
+            cur = out7
+            if self.num_1d:
+                output1d = self.final_1d(out7)
+                return cur, output1d
+            else:
+                return cur
+
+        dummy = torch.Tensor(1)
+        dummy.requires_grad = True
+        if self.num_1d:
+            cur, output1d = checkpoint(run0, x, dummy)
+        else:
+            cur = checkpoint(run0, x, dummy)
+
+        def run1(cur):
+            cur = self.deconv(cur)
+            cur = cur.permute(0, 2, 1)
+            cur = self.transform(cur)
+            cur = cur.permute(0, 2, 1)
+            mat = cur[:, :, :, None] + cur[:, :, None, :]
+            cur = self.final(mat)
+            return cur
+        cur = run1(cur)
+        if self.num_1d:
+            return cur, output1d
+        else:
+            return cur
+
+def get_n_params(model):
+    pp=0
+    for p in list(model.parameters()):
+        nn=1
+        for s in list(p.size()):
+            nn = nn*s
+        pp += nn
+    return pp
+
+i = torch.rand(16, 4, 1000000)
+m = PTTransNet(num_1d=32)
+m2 = PTNet(num_1d=32)
