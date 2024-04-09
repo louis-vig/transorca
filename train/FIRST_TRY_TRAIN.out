@@ -1,0 +1,436 @@
+Not using SWA.
+Attempting to load models...
+no saved model found!
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None): False
+(None,): False
+(None,): False
+(None,): False
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None, None): True
+(None,): True
+(None, None, None): True
+(None,): True
+(None,): True
+(None,): True
+(None, None, None): True
+(None,): True
+no saved optimizer found!
+Beginning training loop...
+Train loss:  1.0435929
+Train loss:  0.57563096
+slurmstepd: error: *** JOB 2067807 ON adroit-h11g2 CANCELLED AT 2024-04-07T22:00:30 DUE TO TIME LIMIT ***
