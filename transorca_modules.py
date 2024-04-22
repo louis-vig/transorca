@@ -519,7 +519,7 @@ class PTNet(nn.Module):
 class PTTransNet(nn.Module):
     def __init__(self, num_1d=None):
         """
-        Orca 1Mb model with trans. decoder. The trained model weighted can be
+        Orca 1Mb model. The trained model weighted can be
         loaded into Encoder and Decoder_1m modules.
 
         Parameters
@@ -662,157 +662,314 @@ class PTTransNet(nn.Module):
         )
         self.conv7.requires_grad_(False)
 
-        self.deconv = nn.Sequential(
-            nn.Dropout(p=0.1),
-            nn.Conv1d(128, 32, kernel_size=3, padding=1),
-            nn.BatchNorm1d(32),
-            nn.Conv1d(32, 64, kernel_size=3, padding=1),
-            nn.BatchNorm1d(64),
-        )
-
         self.transform = nn.Sequential(
             nn.TransformerEncoderLayer(
-                d_model=64,
+                d_model=128,
                 nhead=8,
-                dim_feedforward=64,
+                dim_feedforward=512,
                 dropout=0.4,
                 batch_first=True,
             ),
             nn.TransformerEncoderLayer(
-                d_model=64,
+                d_model=128,
                 nhead=8,
-                dim_feedforward=64,
+                dim_feedforward=512,
                 dropout=0.4,
                 batch_first=True,
             ),
             nn.TransformerEncoderLayer(
-                d_model=64,
+                d_model=128,
                 nhead=8,
-                dim_feedforward=64,
+                dim_feedforward=512,
                 dropout=0.4,
                 batch_first=True,
             ),
             nn.TransformerEncoderLayer(
-                d_model=64,
+                d_model=128,
                 nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
-                dropout=0.4,
-                batch_first=True,
-            ),
-            nn.TransformerEncoderLayer(
-                d_model=64,
-                nhead=8,
-                dim_feedforward=64,
+                dim_feedforward=512,
                 dropout=0.4,
                 batch_first=True,
             ),
         )
 
+
+        self.lconvtwos_ut = nn.ModuleList(
+            [
+                nn.Sequential(
+                    nn.Dropout(p=0.1),
+                    nn.Conv2d(128, 32, kernel_size=(3, 3), padding=1),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=1),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                ),
+            ]
+        )
+
+        self.convtwos_ut = nn.ModuleList(
+            [
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=1),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=1),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=2, dilation=2),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=4, dilation=4),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=8, dilation=8),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=16, dilation=16),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=32, dilation=32),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+                nn.Sequential(
+                    nn.Conv2d(64, 32, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(32),
+                    nn.ReLU(inplace=True),
+                    nn.Conv2d(32, 64, kernel_size=(3, 3), padding=64, dilation=64),
+                    nn.BatchNorm2d(64),
+                    nn.ReLU(inplace=True),
+                ),
+            ]
+        )
         self.final = nn.Sequential(
             nn.Conv2d(64, 5, kernel_size=(1, 1), padding=0),
             nn.BatchNorm2d(5),
@@ -853,6 +1010,7 @@ class PTTransNet(nn.Module):
                 return cur, output1d
             else:
                 return cur
+            
 
         dummy = torch.Tensor(1)
         dummy.requires_grad = True
@@ -861,15 +1019,49 @@ class PTTransNet(nn.Module):
         else:
             cur = checkpoint(run0, x, dummy)
 
-        def run1(cur):
-            cur = self.deconv(cur)
-            cur = cur.permute(0, 2, 1)
+        # Transformer module
+        def run_trans(cur):
+            # switch channels and sequence length
+            cur = cur.transpose(1,2)
             cur = self.transform(cur)
-            cur = cur.permute(0, 2, 1)
+            # switch back
+            cur = cur.transpose(1,2)
+            # Make 2d data
             mat = cur[:, :, :, None] + cur[:, :, None, :]
-            cur = self.final(mat)
+            return mat
+        cur = checkpoint(run_trans, cur)
+
+        def run1(cur):
+            first = True
+            for lm, m in zip(self.lconvtwos_ut[:7], self.convtwos_ut[:7]):
+                if first:
+                    cur = lm(cur)
+
+                    first = False
+                else:
+                    cur = lm(cur) + cur
+                cur = m(cur) + cur
             return cur
-        cur = run1(cur)
+
+        def run2(cur):
+            for lm, m in zip(self.lconvtwos_ut[7:13], self.convtwos_ut[7:13]):
+                cur = lm(cur) + cur
+                cur = m(cur) + cur
+            return cur
+
+        def run3(cur):
+            for lm, m in zip(self.lconvtwos_ut[13:], self.convtwos_ut[13:]):
+                cur = lm(cur) + cur
+                cur = m(cur) + cur
+
+            cur = self.final(cur)
+            cur = 0.5 * cur + 0.5 * cur.transpose(2, 3)
+            return cur
+
+        cur = checkpoint(run1, cur)
+        cur = checkpoint(run2, cur)
+        cur = checkpoint(run3, cur)
+
         if self.num_1d:
             return cur, output1d
         else:
