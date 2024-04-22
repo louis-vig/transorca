@@ -18,7 +18,7 @@ sys.path.append("..")
 from selene_utils2 import *
 from transorca_modules import PTTransNet
 
-modelstr = "h1esc_ai_pt_trans"
+modelstr = "h1esc_a_pt_trans"
 seed = 314
 
 
@@ -129,7 +129,7 @@ if __name__ == "__main__":
             print("no saved optimizer found!")
     scheduler = ReduceLROnPlateau(optimizer, mode="max", factor=0.9, patience=10, threshold=0)
 
-    i = 57000
+    i = 0
     loss_history = []
     normmat_r = np.reshape(normmat, (250, 4, 250, 4)).mean(axis=1).mean(axis=2)
     eps = np.min(normmat_r)
@@ -169,7 +169,8 @@ if __name__ == "__main__":
                 swanet.update_parameters(net)
                 with torch.no_grad():
                     swanet(torch.Tensor(sequence.float()).transpose(1, 2).cuda())
-
+            if i % 250 == 0:
+                print(f"Completing iteration {i}...", flush=True)
             if i % 500 == 0:
                 print(f"Train loss @ {i}: ", np.mean(loss_history[-500:]), flush=True)
             i += 1
