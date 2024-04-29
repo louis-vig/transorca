@@ -1082,7 +1082,7 @@ class PTEDTransNet(nn.Module):
             The number of 1D targets used for the auxiliary
             task of predicting ChIP-seq profiles.
         """
-        super(PTTransNet, self).__init__()
+        super(PTEDTransNet, self).__init__()
 
         self.lconv1 = nn.Sequential(
             nn.Conv1d(4, 64, kernel_size=9, padding=4),
@@ -1544,7 +1544,7 @@ class PTEDTransNet(nn.Module):
     def forward(self, x):
         """Forward propagation of a batch."""
 
-        def run0(x, dummy):
+        def run0(x):
             lout1 = self.lconv1(x)
             out1 = self.conv1(lout1)
             lout2 = self.lconv2(out1 + lout1)
@@ -1567,12 +1567,10 @@ class PTEDTransNet(nn.Module):
                 return cur
             
 
-        dummy = torch.nn.Parameter(torch.Tensor(1))
-        dummy.requires_grad = True
         if self.num_1d:
-            cur, output1d = checkpoint(run0, x, dummy)
+            cur, output1d = run0(x)
         else:
-            cur = checkpoint(run0, x, dummy)
+            cur = run0(x)
 
         # Transformer module
         def run_trans(cur):
@@ -1584,7 +1582,7 @@ class PTEDTransNet(nn.Module):
             # Make 2d data
             mat = cur[:, :, :, None] + cur[:, :, None, :]
             return mat
-        cur = checkpoint(run_trans, cur)
+        cur = run_trans(cur)
 
         def run1(cur):
             first = True
@@ -1622,6 +1620,331 @@ class PTEDTransNet(nn.Module):
         else:
             return cur
 
+class TransDecNet(nn.Module):
+    def __init__(self, num_1d=None):
+        """
+        Orca 1Mb model. The trained model weighted can be
+        loaded into Encoder and Decoder_1m modules.
+
+        Both encoder and decoder modules are loaded.
+        Decoder modules are still enabled for training.
+
+        Parameters
+        ----------
+        num_1d : int or None, optional
+            The number of 1D targets used for the auxiliary
+            task of predicting ChIP-seq profiles.
+        """
+        super(TransDecNet, self).__init__()
+
+
+        self.conv1 = nn.Sequential(
+            nn.Conv1d(4, 16, kernel_size=9, padding=4),
+            nn.BatchNorm1d(16),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(16, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv2 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(64, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(96, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv3 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv4 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv5 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv6 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv7 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(128, 250, kernel_size=9, padding=4),
+            nn.BatchNorm1d(250),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(250, 250, kernel_size=9, padding=4),
+            nn.BatchNorm1d(250),
+            nn.ReLU(inplace=True),
+        )
+
+        self.transforms = nn.Sequential(
+            nn.TransformerEncoderLayer(
+                d_model=250,
+                nhead=5,
+                dim_feedforward=500,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=250,
+                nhead=5,
+                dim_feedforward=500,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=250,
+                nhead=5,
+                dim_feedforward=500,
+                dropout=0.4,
+                batch_first=True,
+            ),
+            nn.TransformerEncoderLayer(
+                d_model=250,
+                nhead=5,
+                dim_feedforward=500,
+                dropout=0.4,
+                batch_first=True,
+            ),
+        )
+
+        self.final = nn.Sequential(
+            nn.Conv2d(1, 5, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(5),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(5, 1, kernel_size=(1, 1), padding=0),
+        )
+
+    def forward(self, x):
+        """Forward propagation of a batch."""
+
+        def run0(x):
+            out1 = self.conv1(x)
+            out2 = self.conv2(out1)
+            out3 = self.conv3(out2)
+            out4 = self.conv4(out3)
+            out5 = self.conv5(out4)
+            out6 = self.conv6(out5)
+            out7 = self.conv7(out6)
+            return out7
+
+        cur = run0(x)
+
+        # Transformer module
+        def run_trans(cur):
+            # switch channels and sequence length
+            # (batch, channels, sequence) -> (batch, sequence, channels)
+            cur = cur.transpose(1,2)
+            cur = self.transforms(cur)
+            # switch back
+            cur = cur.transpose(1,2)
+            # Make 2d data
+            mat = cur[:, None, :, :]
+            cur = self.final(mat)
+            cur = 0.5 * cur + 0.5 * cur.transpose(2,3)
+            return cur
+
+        return run_trans(cur)
+
+class TransDecNetBlur(nn.Module):
+    def __init__(self, num_1d=None):
+        """
+        Orca 1Mb model. The trained model weighted can be
+        loaded into Encoder and Decoder_1m modules.
+
+        Both encoder and decoder modules are loaded.
+        Decoder modules are still enabled for training.
+
+        Parameters
+        ----------
+        num_1d : int or None, optional
+            The number of 1D targets used for the auxiliary
+            task of predicting ChIP-seq profiles.
+        """
+        super(TransDecNetBlur, self).__init__()
+
+
+        self.conv1 = nn.Sequential(
+            nn.Conv1d(4, 16, kernel_size=9, padding=4),
+            nn.BatchNorm1d(16),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(16, 64, kernel_size=9, padding=4),
+            nn.BatchNorm1d(64),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv2 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(64, 96, kernel_size=9, padding=4),
+            nn.BatchNorm1d(96),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(96, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv3 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=4, stride=4),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv4 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv5 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv6 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=5, stride=5),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(128, 128, kernel_size=9, padding=4),
+            nn.BatchNorm1d(128),
+            nn.ReLU(inplace=True),
+        )
+
+        self.conv7 = nn.Sequential(
+            nn.MaxPool1d(kernel_size=2, stride=2),
+            nn.Conv1d(128, 250, kernel_size=9, padding=4),
+            nn.BatchNorm1d(250),
+            nn.ReLU(inplace=True),
+            nn.Conv1d(250, 250, kernel_size=9, padding=4),
+            nn.BatchNorm1d(250),
+            nn.ReLU(inplace=True),
+        )
+
+        self.blurs = nn.ModuleList(
+            [
+                nn.AvgPool2d(kernel_size=3, stride=1, padding=1, count_include_pad=False),
+                nn.AvgPool2d(kernel_size=3, stride=1, padding=1, count_include_pad=False),
+                nn.AvgPool2d(kernel_size=3, stride=1, padding=1, count_include_pad=False),
+                nn.AvgPool2d(kernel_size=3, stride=1, padding=1, count_include_pad=False),
+            ]
+        )
+
+        self.transforms = nn.ModuleList(
+            [
+                nn.TransformerEncoderLayer(
+                    d_model=250,
+                    nhead=5,
+                    dim_feedforward=500,
+                    dropout=0.4,
+                    batch_first=True,
+                ),
+                nn.TransformerEncoderLayer(
+                    d_model=250,
+                    nhead=5,
+                    dim_feedforward=500,
+                    dropout=0.4,
+                    batch_first=True,
+                ),
+                nn.TransformerEncoderLayer(
+                    d_model=250,
+                    nhead=5,
+                    dim_feedforward=500,
+                    dropout=0.4,
+                    batch_first=True,
+                ),
+                nn.TransformerEncoderLayer(
+                    d_model=250,
+                    nhead=5,
+                    dim_feedforward=500,
+                    dropout=0.4,
+                    batch_first=True,
+                ),
+            ]
+        )
+
+        self.final = nn.Sequential(
+            nn.Conv2d(1, 5, kernel_size=(3, 3), padding=1),
+            nn.BatchNorm2d(5),
+            nn.ReLU(inplace=True),
+            nn.Conv2d(5, 1, kernel_size=(1, 1), padding=0),
+        )
+
+    def forward(self, x):
+        """Forward propagation of a batch."""
+
+        def run0(x):
+            out1 = self.conv1(x)
+            out2 = self.conv2(out1)
+            out3 = self.conv3(out2)
+            out4 = self.conv4(out3)
+            out5 = self.conv5(out4)
+            out6 = self.conv6(out5)
+            out7 = self.conv7(out6)
+            return out7
+
+        cur = run0(x)
+
+        # Transformer module
+        def run_trans(cur):
+            # switch channels and sequence length
+            # (batch, channels, sequence) -> (batch, sequence, channels)
+            cur = cur.transpose(1,2)
+            for blur, transform in zip(self.blurs, self.transforms):
+                cur = blur(cur[:, None, :, :])
+                cur = cur.squeeze(1)
+                cur = transform(cur)
+
+            # Make 2d data
+            mat = cur[:, None, :, :]
+            cur = self.final(mat)
+            cur = 0.5 * cur + 0.5 * cur.transpose(2,3)
+            return cur
+
+        return run_trans(cur)
+
 def get_n_params(model):
     pp=0
     for p in list(model.parameters()):
@@ -1634,3 +1957,4 @@ def get_n_params(model):
 i = torch.rand(16, 4, 1000000)
 m = PTTransNet(num_1d=32)
 m2 = PTNet(num_1d=32)
+m3 = TransDecNet()
