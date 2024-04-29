@@ -1,0 +1,270 @@
+Training transformer model: transformer intermediate.
+Not using SWA.
+Attempting to load models...
+saved model loaded
+Beginning training loop...
+Completing iteration 13750...
+Fatal Python error: Segmentation fault
+
+Current thread 0x0000146dc17a8700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/cuda/nccl.py", line 107 in reduce
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/comm.py", line 94 in reduce_add
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/comm.py", line 141 in reduce_add_coalesced
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/_functions.py", line 45 in forward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 553 in apply
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/_functions.py", line 34 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 289 in apply
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/__init__.py", line 266 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/checkpoint.py", line 319 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 289 in apply
+
+Thread 0x0000146dc19a9700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/_utils.py", line 562 in _unflatten_dense_tensors
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/comm.py", line 142 in reduce_add_coalesced
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/_functions.py", line 45 in forward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 553 in apply
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/parallel/_functions.py", line 34 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 289 in apply
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/__init__.py", line 266 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/checkpoint.py", line 319 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/function.py", line 289 in apply
+
+Thread 0x0000146dc39dc700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc3bdd700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc3dde700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc3fdf700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc43e1700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc45e2700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc47e3700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc49e4700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc4de6700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc5bed700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc5fef700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc659c700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc679d700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc699e700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc53e9700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc55ea700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc59ec700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc57eb700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146de09db700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146de07da700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146de05d9700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146de03d8700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dcddd1700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dcdbd0700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc41e0700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc4be5700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc4fe7700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc5dee700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc61f0700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146de0bdc700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dcd7ce700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dcd5cd700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 312 in wait
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/multiprocessing/queues.py", line 231 in _feed
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146dc51e8700 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/data/_utils/pin_memory.py", line 57 in pin_memory
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/data/_utils/pin_memory.py", line 72 in <listcomp>
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/data/_utils/pin_memory.py", line 72 in pin_memory
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/data/_utils/pin_memory.py", line 36 in do_one_step
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/data/_utils/pin_memory.py", line 53 in _pin_memory_loop
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 917 in run
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 980 in _bootstrap_inner
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/threading.py", line 937 in _bootstrap
+
+Thread 0x0000146edf2e6400 (most recent call first):
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/autograd/__init__.py", line 266 in backward
+  File "/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/_tensor.py", line 522 in backward
+  File "/scratch/network/louisv/transorca/train/train_h1esc_a_PTTrans.py", line 165 in <module>
+/var/spool/slurmd/job2079549/slurm_script: line 18: 664616 Segmentation fault      (core dumped) python -W ignore -X faulthandler train_h1esc_a_PTTrans.py

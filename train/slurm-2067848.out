@@ -1,0 +1,27 @@
+Not using SWA.
+Attempting to load models...
+no saved model found!
+no saved optimizer found!
+Beginning training loop...
+Train loss:  0.98178166
+Train loss:  0.5661141
+Train loss:  0.49909285
+Train loss:  0.49461296
+Average Corr0.1006604009036456, MSE 0.18265385925769806, 1D 0.3364420533180237
+Train loss:  0.49746785
+Train loss:  0.49287194
+Train loss:  0.4952279
+Train loss:  0.49524263
+Average Corr0.12931879327389986, MSE 0.1792316734790802, 1D 0.3318566083908081
+Train loss:  0.49076605
+Train loss:  0.49325132
+Train loss:  0.48990676
+Train loss:  0.4911288
+Average Corr0.1303248697593841, MSE 0.18374857306480408, 1D 0.33316510915756226
+Train loss:  0.49377942
+Train loss:  0.49022394
+Train loss:  0.48772222
+Train loss:  0.48750955
+Average Corr0.17040417331201224, MSE 0.1716117113828659, 1D 0.3285781443119049
+Train loss:  0.48741865
+slurmstepd: error: *** JOB 2067848 ON adroit-h11g2 CANCELLED AT 2024-04-08T02:49:16 DUE TO TIME LIMIT ***
