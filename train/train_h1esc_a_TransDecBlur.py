@@ -19,7 +19,7 @@ from selene_utils2 import *
 from transorca_modules import TransDecNetBlur
 
 modelstr = "h1esc_a_trans_dec_blur"
-seed = 314
+seed = 316
 
 
 torch.set_default_tensor_type("torch.FloatTensor")
@@ -28,7 +28,7 @@ os.makedirs("./png/", exist_ok=True)
 
 if __name__ == "__main__":
     print("Training transformer model.")
-    if len(sys.argv) > 1 and sys.argv[1] == "--swa":
+    if "--swa" in sys.argv:
         print("Training in SWA mode.")
         use_swa = True
         modelstr += "_swa"
@@ -117,7 +117,7 @@ if __name__ == "__main__":
             print("no saved optimizer found!")
     scheduler = ReduceLROnPlateau(optimizer, mode="max", factor=0.9, patience=10, threshold=0)
 
-    i = 136000
+    i = 318000
     loss_history = []
     normmat_r = np.reshape(normmat, (250, 4, 250, 4)).mean(axis=1).mean(axis=2)
     eps = np.min(normmat_r)
