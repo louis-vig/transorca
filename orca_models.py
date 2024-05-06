@@ -9,6 +9,7 @@ import torch
 from torch import nn
 
 from orca_modules import Encoder, Encoder2, Encoder2b, Encoder3, Decoder, Decoder_1m, Net
+from transorca_modules import TransDecNetBlur
 
 ORCA_PATH = str(pathlib.Path(__file__).parent.absolute())
 
@@ -492,6 +493,52 @@ class H1esc_1M(nn.Module):
         pred, _ = self.net.forward(x)
 
         return pred
+
+class H1escTrans_1M(nn.Module):
+    """
+    Orca H1-ESC model (1Mb) with transformer
+
+    Attributes
+    ----------
+    net : nn.DataParallel(Net)
+        Integrated Encoder and Decoder for 1Mb model.
+    normmats : dict(int: numpy.ndarray)
+        The distance-based background matrices with expected log
+        fold over background values at each level.
+    epss : dict(int: float)
+        The minimum background value at each level. Used for 
+        stablizing the log fold computation by adding
+        to both the nominator and the denominator.
+    """
+
+    def __init__(self,):
+        super(H1escTrans_1M, self).__init__()
+        self.net = nn.DataParallel(TransDecNetBlur())
+        num_threads = torch.get_num_threads()
+        pretrained_dict = torch.load(
+            ORCA_PATH + "/models/model_h1esc_a_trans_dec_blur_swa.statedict", map_location=torch.device("cpu")
+        )
+        self.net.load_state_dict(pretrained_dict)
+        self.net.eval()
+
+        expected_log = np.load(
+            ORCA_PATH + "/resources/4DNFI9GMP2J8.rebinned.mcool.expected.res1000.npy"
+        )[:1000]
+
+        normmat = np.exp(expected_log[np.abs(np.arange(1000)[None, :] - np.arange(1000)[:, None])])
+
+        normmat_r = np.reshape(normmat, (250, 4, 250, 4)).mean(axis=1).mean(axis=2)
+        eps = np.min(normmat_r)
+
+        self.normmats = {1: normmat_r}
+        self.epss = {1: eps}
+        torch.set_num_threads(num_threads)
+
+    def forward(self, x):
+        pred = self.net.forward(x)
+
+        return pred
+
 
 
 class Hff_1M(nn.Module):
