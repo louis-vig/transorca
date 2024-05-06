@@ -21,7 +21,7 @@ from selene_utils2 import MemmapGenome, Genomic2DFeatures
 import selene_sdk
 from selene_sdk.sequences import Genome
 
-from orca_models import H1esc, H1esc_1M, H1esc_256M
+from orca_models import H1esc, H1esc_1M, H1esc_256M, H1escTrans_1M
 from orca_utils import (
     genomeplot,
     genomeplot_1Mb,
@@ -119,18 +119,23 @@ def load_resources(models=["32M"], use_cuda=True, use_memmapgenome=True):
         # model_dict_global["hff"] = hff
 
     if "1M" in models or "1m" in models:
-        global h1esc_1m #, hff_1m
+        global h1esc_1m, h1esc_trans_1m #, hff_1m
         h1esc_1m = H1esc_1M()
         h1esc_1m.eval()
+        h1esc_trans_1m = H1escTrans_1M()
+        h1esc_trans_1m.eval()
         # hff_1m = Hff_1M()
         # hff_1m.eval()
         if use_cuda:
             h1esc_1m.cuda()
+            h1esc_trans_1m.cuda()
             # hff_1m.cuda()
         else:
             h1esc_1m.cpu()
+            h1esc_trans_1m.cpu()
             # hff_1m.cpu()
         model_dict_global["h1esc_1m"] = h1esc_1m
+        model_dict_global["h1esc_trans_1m"] = h1esc_trans_1m
         # model_dict_global["hff_1m"] = hff_1m
 
     if "256M" in models or "256m" in models:
@@ -147,10 +152,9 @@ def load_resources(models=["32M"], use_cuda=True, use_memmapgenome=True):
             # hff_256m.cpu()
         model_dict_global["h1esc_256m"] = h1esc_256m
         # model_dict_global["hff_256m"] = hff_256m
-
     if (
         use_memmapgenome
-        and pathlib.Path("/resources/Homo_sapiens.GRCh38.dna.primary_assembly.fa.mmap").exists()
+        and pathlib.Path(ORCA_PATH + "/resources/Homo_sapiens.GRCh38.dna.primary_assembly.fa.mmap").exists()
     ):
         print("Using hg38 memmap file")
         hg38 = MemmapGenome(
@@ -226,9 +230,16 @@ def load_resources(models=["32M"], use_cuda=True, use_memmapgenome=True):
             (8000, 8000),
             cg=True,
         )
+        target_h1esc_trans_1m = Genomic2DFeatures(
+            [ORCA_PATH + "/resources/4DNFI9GMP2J8.rebinned.mcool::/resolutions/1000"],
+            ["r1000"],
+            (8000, 8000),
+            cg=True,
+        )
         target_dict_global['h1esc'] = target_h1esc
         target_dict_global['h1esc_256m'] = target_h1esc_256m
         target_dict_global['h1esc_1m'] = target_h1esc_1m
+        target_dict_global['h1esc_trans_1m'] = target_h1esc_trans_1m
     else:
         target_available = False
 
@@ -303,7 +314,6 @@ def genomepredict_1Mb(
 
     """
     model_objs = []
-    print(f"Model dict: {model_dict_global}")
     for m in models:
         if isinstance(m, torch.nn.Module):
             model_objs.append(m)
@@ -317,7 +327,6 @@ def genomepredict_1Mb(
                     model_objs.append(model_dict_global[m])
     models = model_objs
     n_models = len(models)
-    print(f"Number of models: {n_models}")
 
     with torch.no_grad():
         allpreds = []
@@ -1352,7 +1361,9 @@ def process_region(
 
     if target:
         try:
-            if target == True:
+            if custom_models:
+                target = custom_models
+            else:
                 if window_radius == 16000000:
                     target = ["h1esc"]
                 elif window_radius == 500000:
@@ -1430,7 +1441,6 @@ def process_region(
             use_cuda=use_cuda,
         )
     elif window_radius == 500000:
-        print(f"Models: {models}")
         outputs_ref = genomepredict_1Mb(
             sequence,
             mchr,
