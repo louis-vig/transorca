@@ -1,0 +1,797 @@
+/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/cooltools/lib/numutils.py:1376: RuntimeWarning: invalid value encountered in divide
+  val_cur = ar_cur / armask_cur
+/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/cooltools/lib/numutils.py:1376: RuntimeWarning: invalid value encountered in divide
+  val_cur = ar_cur / armask_cur
+/scratch/network/louisv/transorca/transorca_predict.py:345: UserWarning: The given NumPy array is not writable, and PyTorch does not support non-writable tensors. This means writing to this tensor will result in undefined behavior. You may want to copy the array to protect its data or make it writable before converting it to a tensor. This type of warning will be suppressed for the rest of this program. (Triggered internally at /opt/conda/conda-bld/pytorch_1711403392949/work/torch/csrc/utils/tensor_numpy.cpp:206.)
+  torch.FloatTensor(sequence),
+/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/checkpoint.py:460: UserWarning: torch.utils.checkpoint: please pass in use_reentrant=True or use_reentrant=False explicitly. The default value of use_reentrant will be updated to be False in the future. To maintain current behavior, pass use_reentrant=True. It is recommended that you use use_reentrant=False. Refer to docs for more details on the differences between the two variants.
+  warnings.warn(
+/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/nn/modules/conv.py:306: UserWarning: Applied workaround for CuDNN issue, install nvrtc.so (Triggered internally at /opt/conda/conda-bld/pytorch_1711403392949/work/aten/src/ATen/native/cudnn/Conv_v8.cpp:80.)
+  return F.conv1d(input, weight, bias, self.stride,
+/scratch/network/louisv/.conda/envs/orca_env/lib/python3.9/site-packages/torch/utils/checkpoint.py:90: UserWarning: None of the inputs have requires_grad=True. Gradients will be None
+  warnings.warn(
+/scratch/network/louisv/transorca/transorca_predict.py:384: RuntimeWarning: Mean of empty slice
+  np.nanmean(
+WARNING:pygenometracks.tracksClass:title not set for section 4. [test gtf collapsed]
+
+INFO:pygenometracks.tracksClass:initialize 1. [spacer]
+INFO:pygenometracks.tracksClass:initialize 2. [x-axis]
+INFO:pygenometracks.tracksClass:initialize 3. [spacer]
+INFO:pygenometracks.tracksClass:initialize 4. [test gtf collapsed]
+/scratch/network/louisv/transorca
+EXISTS:::::: True
+Using hg38 memmap file
+Model dict: {'h1esc_1m': H1esc_1M(
+  (net): DataParallel(
+    (module): Net(
+      (lconv1): Sequential(
+        (0): Conv1d(4, 64, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): Conv1d(64, 64, kernel_size=(9,), stride=(1,), padding=(4,))
+        (3): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv1): Sequential(
+        (0): Conv1d(64, 64, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(64, 64, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv2): Sequential(
+        (0): MaxPool1d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(64, 96, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(96, 96, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv2): Sequential(
+        (0): Conv1d(96, 96, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(96, 96, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv3): Sequential(
+        (0): MaxPool1d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(96, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv3): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv4): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv4): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv5): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv5): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv6): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv6): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconv7): Sequential(
+        (0): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+      )
+      (conv7): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (lconvtwos): ModuleList(
+        (0): Sequential(
+          (0): Dropout(p=0.1, inplace=False)
+          (1): Conv2d(128, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (2): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (1): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (2): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (3): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (4): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (5): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (6): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (7): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (8): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (9): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (10): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (11): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (12): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (13): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (14): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (15): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (16): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (17): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+        (18): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (3): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        )
+      )
+      (convtwos): ModuleList(
+        (0): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (1): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (2): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (3): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (4): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (5): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (6): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (7): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (8): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (9): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (10): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (11): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (12): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (13): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (14): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (15): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (16): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (17): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(32, 32), dilation=(32, 32))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+        (18): Sequential(
+          (0): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (1): BatchNorm2d(32, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (2): ReLU(inplace=True)
+          (3): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(64, 64), dilation=(64, 64))
+          (4): BatchNorm2d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+          (5): ReLU(inplace=True)
+        )
+      )
+      (final): Sequential(
+        (0): Conv2d(64, 5, kernel_size=(1, 1), stride=(1, 1))
+        (1): BatchNorm2d(5, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(5, 1, kernel_size=(1, 1), stride=(1, 1))
+      )
+      (final_1d): Sequential(
+        (0): Conv1d(128, 128, kernel_size=(1,), stride=(1,))
+        (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(128, 32, kernel_size=(1,), stride=(1,))
+        (4): Sigmoid()
+      )
+    )
+  )
+), 'h1esc_trans_1m': H1escTrans_1M(
+  (net): DataParallel(
+    (module): TransDecNetBlur(
+      (conv1): Sequential(
+        (0): Conv1d(4, 16, kernel_size=(9,), stride=(1,), padding=(4,))
+        (1): BatchNorm1d(16, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv1d(16, 64, kernel_size=(9,), stride=(1,), padding=(4,))
+        (4): BatchNorm1d(64, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (5): ReLU(inplace=True)
+      )
+      (conv2): Sequential(
+        (0): MaxPool1d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(64, 96, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(96, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(96, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (conv3): Sequential(
+        (0): MaxPool1d(kernel_size=4, stride=4, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (conv4): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (conv5): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (conv6): Sequential(
+        (0): MaxPool1d(kernel_size=5, stride=5, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(128, 128, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (conv7): Sequential(
+        (0): MaxPool1d(kernel_size=2, stride=2, padding=0, dilation=1, ceil_mode=False)
+        (1): Conv1d(128, 250, kernel_size=(9,), stride=(1,), padding=(4,))
+        (2): BatchNorm1d(250, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (3): ReLU(inplace=True)
+        (4): Conv1d(250, 250, kernel_size=(9,), stride=(1,), padding=(4,))
+        (5): BatchNorm1d(250, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (6): ReLU(inplace=True)
+      )
+      (blurs): ModuleList(
+        (0-3): 4 x AvgPool2d(kernel_size=3, stride=1, padding=1)
+      )
+      (transforms): ModuleList(
+        (0-3): 4 x TransformerEncoderLayer(
+          (self_attn): MultiheadAttention(
+            (out_proj): NonDynamicallyQuantizableLinear(in_features=250, out_features=250, bias=True)
+          )
+          (linear1): Linear(in_features=250, out_features=500, bias=True)
+          (dropout): Dropout(p=0.4, inplace=False)
+          (linear2): Linear(in_features=500, out_features=250, bias=True)
+          (norm1): LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          (norm2): LayerNorm((250,), eps=1e-05, elementwise_affine=True)
+          (dropout1): Dropout(p=0.4, inplace=False)
+          (dropout2): Dropout(p=0.4, inplace=False)
+        )
+      )
+      (final): Sequential(
+        (0): Conv2d(1, 5, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+        (1): BatchNorm2d(5, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+        (2): ReLU(inplace=True)
+        (3): Conv2d(5, 1, kernel_size=(1, 1), stride=(1, 1))
+      )
+    )
+  )
+)}
+Number of models: 2
+0it [00:00, ?it/s]0it [00:00, ?it/s]
+WARNING:pygenometracks.tracks.GenomeTrack:No valid intervals were found in file /scratch/network/louisv/transorca/resources/hg38.refGeneSelectMANE.bed.gz.
+
+INFO:pygenometracks.tracksClass:time initializing track(s):
+INFO:pygenometracks.tracksClass:0.18487811088562012
+DEBUG:pygenometracks.tracksClass:Figure size in cm is 40.0 x 28.776595744680854. Dpi is set to 10
+
+INFO:pygenometracks.tracksClass:plotting 1. [spacer]
+INFO:pygenometracks.tracksClass:plotting 2. [x-axis]
+INFO:pygenometracks.tracksClass:plotting 3. [spacer]
+INFO:pygenometracks.tracksClass:plotting 4. [test gtf collapsed]
+WARNING:pygenometracks.tracks.GenomeTrack:*Warning*
+No interval was found when overlapping with both chr8:110304000-111504000 and 8:110304000-111504000 inside the bed file. This will generate an empty track!!
+
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 16 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 16 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 16 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 16 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Retaining 16 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closing glyph list over 'MATH': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'MATH': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Retaining 15 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:MATH subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0, 38]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 16 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 16 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 16 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 16 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'M', 'O', 'P', 'b', 'd', 'e', 'l', 'nonmarkingreturn', 'o', 'one', 'r', 's', 'space', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 48, 50, 51, 69, 71, 72, 79, 82, 85, 86]
+INFO:fontTools.subset:Retaining 16 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closing glyph list over 'MATH': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'MATH': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 15 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 15 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'c', 'colon', 'eight', 'four', 'h', 'hyphen', 'minus', 'nonmarkingreturn', 'one', 'r', 'space', 'two', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 16, 19, 20, 21, 23, 27, 29, 70, 75, 85, 3228]
+INFO:fontTools.subset:Retaining 15 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:MATH subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0, 38]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+{'predictions': [[array([[-0.02717463, -0.01223994, -0.03837246, ...,  0.1084463 ,
+         0.13276395,  0.13002978],
+       [-0.01223994, -0.02717463, -0.04905373, ...,  0.108909  ,
+         0.13439189,  0.11496875],
+       [-0.03837246, -0.04905373, -0.03613475, ...,  0.09900139,
+         0.1212888 ,  0.11509969],
+       ...,
+       [ 0.1084463 ,  0.108909  ,  0.09900139, ..., -0.02562329,
+        -0.02717463, -0.0044202 ],
+       [ 0.13276395,  0.13439189,  0.1212888 , ..., -0.02717463,
+        -0.02717463,  0.00646046],
+       [ 0.13002978,  0.11496875,  0.11509969, ..., -0.0044202 ,
+         0.00646046, -0.02589473]], dtype=float32)], [array([[-0.25200117, -0.04126324, -0.11669513, ...,  0.17300066,
+         0.19311263, -0.01104668],
+       [-0.04126324,  0.13890487,  0.03984609, ...,  0.2685389 ,
+         0.30686218,  0.19448893],
+       [-0.11669513,  0.03984609, -0.05504537, ...,  0.23128213,
+         0.26856822,  0.17403302],
+       ...,
+       [ 0.17300066,  0.2685389 ,  0.23128213, ..., -0.11912745,
+        -0.02612303, -0.1683268 ],
+       [ 0.19311263,  0.30686218,  0.26856822, ..., -0.02612303,
+         0.08172819, -0.09600669],
+       [-0.01104668,  0.19448893,  0.17403302, ..., -0.1683268 ,
+        -0.09600669, -0.30358317]], dtype=float32)]], 'experiments': [[array([[-0.02604587, -0.05985409,  0.24117543, ...,  0.14262294,
+        -0.07765007, -0.07324001],
+       [-0.05985401, -0.11667486, -0.0083376 , ...,  0.14129645,
+        -0.08024779, -0.07765007],
+       [ 0.24117543, -0.0083376 , -0.07982605, ...,  0.13663497,
+        -0.08157429, -0.08024779],
+       ...,
+       [ 0.14262294,  0.14129645,  0.13663497, ..., -0.08340589,
+        -0.03561514, -0.04518864],
+       [-0.07765007, -0.08024779, -0.08157429, ..., -0.03561514,
+         0.00973399, -0.10925551],
+       [-0.07324001, -0.07765007, -0.08024779, ..., -0.04518864,
+        -0.10925544, -0.04563674]])], [array([[-0.02604587, -0.05985409,  0.24117543, ...,  0.14262294,
+        -0.07765007, -0.07324001],
+       [-0.05985401, -0.11667486, -0.0083376 , ...,  0.14129645,
+        -0.08024779, -0.07765007],
+       [ 0.24117543, -0.0083376 , -0.07982605, ...,  0.13663497,
+        -0.08157429, -0.08024779],
+       ...,
+       [ 0.14262294,  0.14129645,  0.13663497, ..., -0.08340589,
+        -0.03561514, -0.04518864],
+       [-0.07765007, -0.08024779, -0.08157429, ..., -0.03561514,
+         0.00973399, -0.10925551],
+       [-0.07324001, -0.07765007, -0.08024779, ..., -0.04518864,
+        -0.10925544, -0.04563674]])]], 'start_coords': [110404000], 'end_coords': [111404000], 'chr': 'chr8', 'annos': [[(0.0, 1.0, 'black')]], 'normmats': [[array([[1.07103023e-01, 2.71468200e-02, 6.44174808e-03, ...,
+        3.33559082e-05, 3.31840343e-05, 3.28932713e-05],
+       [2.71468200e-02, 1.07103023e-01, 2.71468200e-02, ...,
+        3.34438457e-05, 3.33559082e-05, 3.31840343e-05],
+       [6.44174808e-03, 2.71468200e-02, 1.07103023e-01, ...,
+        3.37537962e-05, 3.34438457e-05, 3.33559082e-05],
+       ...,
+       [3.33559082e-05, 3.34438457e-05, 3.37537962e-05, ...,
+        1.07103023e-01, 2.71468200e-02, 6.44174808e-03],
+       [3.31840343e-05, 3.33559082e-05, 3.34438457e-05, ...,
+        2.71468200e-02, 1.07103023e-01, 2.71468200e-02],
+       [3.28932713e-05, 3.31840343e-05, 3.33559082e-05, ...,
+        6.44174808e-03, 2.71468200e-02, 1.07103023e-01]])], [array([[1.07103023e-01, 2.71468200e-02, 6.44174808e-03, ...,
+        3.33559082e-05, 3.31840343e-05, 3.28932713e-05],
+       [2.71468200e-02, 1.07103023e-01, 2.71468200e-02, ...,
+        3.34438457e-05, 3.33559082e-05, 3.31840343e-05],
+       [6.44174808e-03, 2.71468200e-02, 1.07103023e-01, ...,
+        3.37537962e-05, 3.34438457e-05, 3.33559082e-05],
+       ...,
+       [3.33559082e-05, 3.34438457e-05, 3.37537962e-05, ...,
+        1.07103023e-01, 2.71468200e-02, 6.44174808e-03],
+       [3.31840343e-05, 3.33559082e-05, 3.34438457e-05, ...,
+        2.71468200e-02, 1.07103023e-01, 2.71468200e-02],
+       [3.28932713e-05, 3.31840343e-05, 3.33559082e-05, ...,
+        6.44174808e-03, 2.71468200e-02, 1.07103023e-01]])]]}

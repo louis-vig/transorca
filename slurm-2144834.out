@@ -1,0 +1,332 @@
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closing glyph list over 'MATH': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'MATH': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Retaining 21 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:MATH subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0, 38]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+Using hg38 memmap file
+running window 0
+running window 500000
+running window 1000000
+running window 1500000
+running window 2000000
+running window 2500000
+running window 3000000
+running window 3500000
+running window 4000000
+running window 4500000
+running window 5000000
+running window 5500000
+running window 6000000
+running window 6500000
+running window 7000000
+running window 7500000
+running window 8000000
+running window 8500000
+running window 9000000
+running window 9500000
+running window 10000000
+running window 10500000
+running window 11000000
+running window 11500000
+running window 12000000
+running window 12500000
+running window 13000000
+running window 13500000
+running window 14000000
+running window 14500000
+running window 15000000
+running window 15500000
+running window 16000000
+running window 16500000
+running window 17000000
+running window 17500000
+running window 18000000
+running window 18500000
+running window 19000000
+running window 19500000
+running window 20000000
+running window 20500000
+running window 21000000
+running window 21500000
+running window 22000000
+running window 22500000
+running window 23000000
+running window 23500000
+running window 24000000
+running window 24500000
+running window 25000000
+running window 25500000
+running window 26000000
+running window 26500000
+running window 27000000
+running window 27500000
+running window 28000000
+running window 28500000
+running window 29000000
+running window 29500000
+running window 30000000
+running window 30500000
+running window 31000000
+running window 31500000
+running window 32000000
+running window 32500000
+running window 33000000
+running window 33500000
+running window 34000000
+running window 34500000
+running window 35000000
+running window 35500000
+running window 36000000
+running window 36500000
+running window 37000000
+running window 37500000
+running window 38000000
+running window 38500000
+running window 39000000
+running window 39500000
+running window 40000000
+running window 40500000
+running window 41000000
+running window 41500000
+running window 42000000
+running window 42500000
+running window 43000000
+running window 43500000
+running window 44000000
+running window 44500000
+running window 45000000
+running window 45500000
+running window 46000000
+running window 46500000
+running window 47000000
+running window 47500000
+running window 48000000
+running window 48500000
+running window 49000000
+running window 49500000
+running window 50000000
+running window 50500000
+running window 51000000
+running window 51500000
+running window 52000000
+running window 52500000
+running window 53000000
+running window 53500000
+running window 54000000
+running window 54500000
+running window 55000000
+running window 55500000
+running window 56000000
+running window 56500000
+running window 57000000
+running window 57500000
+running window 58000000
+running window 58500000
+running window 59000000
+running window 59500000
+running window 60000000
+running window 60500000
+running window 61000000
+running window 61500000
+running window 62000000
+running window 62500000
+running window 63000000
+running window 63500000
+running window 64000000
+running window 64500000
+running window 65000000
+running window 65500000
+running window 66000000
+running window 66500000
+running window 67000000
+running window 67500000
+running window 68000000
+running window 68500000
+running window 69000000
+running window 69500000
+running window 70000000
+running window 70500000
+running window 71000000
+running window 71500000
+running window 72000000
+running window 72500000
+running window 73000000
+running window 73500000
+running window 74000000
+running window 74500000
+running window 75000000
+running window 75500000
+running window 76000000
+running window 76500000
+running window 77000000
+running window 77500000
+running window 78000000
+running window 78500000
+running window 79000000
+running window 79500000
+running window 80000000
+running window 80500000
+running window 81000000
+running window 81500000
+running window 82000000
+running window 82500000
+running window 83000000
+running window 83500000
+running window 84000000
+running window 84500000
+running window 85000000
+running window 85500000
+running window 86000000
+running window 86500000
+running window 87000000
+running window 87500000
+running window 88000000
+running window 88500000
+running window 89000000
+running window 89500000
+running window 90000000
+running window 90500000
+running window 91000000
+running window 91500000
+running window 92000000
+running window 92500000
+running window 93000000
+running window 93500000
+running window 94000000
+running window 94500000
+running window 95000000
+running window 95500000
+running window 96000000
+running window 96500000
+running window 97000000
+running window 97500000
+running window 98000000
+running window 98500000
+running window 99000000
+running window 99500000
+running window 100000000
+running window 100500000
+running window 101000000
+running window 101500000
+running window 102000000
+running window 102500000
+running window 103000000
+running window 103500000
+running window 104000000
+running window 104500000
+running window 105000000
+running window 105500000
+running window 106000000
+running window 106500000
+running window 107000000
+running window 107500000
+running window 108000000
+running window 108500000
+running window 109000000
+running window 109500000
+running window 110000000
+running window 110500000
+running window 111000000
+running window 111500000
+running window 112000000
+running window 112500000
+running window 113000000
+running window 113500000
+running window 114000000
+running window 114500000
+running window 115000000
+running window 115500000
+running window 116000000
+running window 116500000
+running window 117000000
+running window 117500000
+running window 118000000
+running window 118500000
+running window 119000000
+running window 119500000
+running window 120000000
+running window 120500000
+running window 121000000
+running window 121500000
+running window 122000000
+running window 122500000
+running window 123000000
+running window 123500000
+running window 124000000
+running window 124500000
+running window 125000000
+running window 125500000
+running window 126000000
+running window 126500000
+running window 127000000
+running window 127500000
+running window 128000000
+running window 128500000
+running window 129000000
+running window 129500000
+running window 130000000
+running window 130500000
+running window 131000000
+running window 131500000
+running window 132000000
+running window 132500000
+running window 133000000
+running window 133500000
+running window 134000000
+running window 134500000
+running window 135000000
+running window 135500000
+running window 136000000
+running window 136500000
+running window 137000000
+running window 137500000
+CORR = 0.3370238548645106

@@ -1,0 +1,76 @@
+INFO:fontTools.subset:maxp pruned
+INFO:fontTools.subset:cmap pruned
+INFO:fontTools.subset:kern dropped
+INFO:fontTools.subset:post pruned
+INFO:fontTools.subset:FFTM dropped
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+INFO:fontTools.subset:name pruned
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:Added gid0 to subset
+INFO:fontTools.subset:Added first four glyphs to subset
+INFO:fontTools.subset:Closing glyph list over 'GSUB': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'GSUB': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closing glyph list over 'MATH': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'MATH': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closing glyph list over 'glyf': 21 glyphs before
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Closed glyph list over 'glyf': 21 glyphs after
+INFO:fontTools.subset:Glyph names: ['.notdef', '.null', 'E', 'P', 'c', 'd', 'e', 'i', 'm', 'minus', 'n', 'nonmarkingreturn', 'o', 'one', 'p', 'r', 'space', 't', 'two', 'x', 'zero']
+INFO:fontTools.subset:Glyph IDs:   [0, 1, 2, 3, 19, 20, 21, 40, 51, 70, 71, 72, 76, 80, 81, 82, 83, 85, 87, 91, 3228]
+INFO:fontTools.subset:Retaining 21 glyphs
+INFO:fontTools.subset:head subsetting not needed
+INFO:fontTools.subset:hhea subsetting not needed
+INFO:fontTools.subset:maxp subsetting not needed
+INFO:fontTools.subset:OS/2 subsetting not needed
+INFO:fontTools.subset:hmtx subsetted
+INFO:fontTools.subset:cmap subsetted
+INFO:fontTools.subset:fpgm subsetting not needed
+INFO:fontTools.subset:prep subsetting not needed
+INFO:fontTools.subset:cvt  subsetting not needed
+INFO:fontTools.subset:loca subsetting not needed
+INFO:fontTools.subset:post subsetted
+INFO:fontTools.subset:gasp subsetting not needed
+INFO:fontTools.subset:GDEF subsetted
+INFO:fontTools.subset:GPOS subsetted
+INFO:fontTools.subset:GSUB subsetted
+INFO:fontTools.subset:MATH subsetted
+INFO:fontTools.subset:name subsetting not needed
+INFO:fontTools.subset:glyf subsetted
+INFO:fontTools.subset:head pruned
+INFO:fontTools.subset:OS/2 Unicode ranges pruned: [0, 38]
+INFO:fontTools.subset:glyf pruned
+INFO:fontTools.subset:GDEF pruned
+INFO:fontTools.subset:GPOS pruned
+INFO:fontTools.subset:GSUB pruned
+Using hg38 memmap file
+running window 0
+running window 500000
+running window 1000000
+running window 1500000
+running window 2000000
+running window 2500000
+running window 3000000
+running window 3500000
+running window 4000000
+running window 4500000
+running window 5000000
+running window 5500000
+running window 6000000
+running window 6500000
+running window 7000000
+running window 7500000
+running window 8000000
+running window 8500000
+running window 9000000
+running window 9500000
+CORR = 0.25788766718866635
