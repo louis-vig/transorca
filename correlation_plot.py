@@ -34,7 +34,7 @@ indices = np.random.choice(trans_experiments[~np.isnan(trans_experiments)].shape
 
 plt.xlabel('Prediction')
 plt.ylabel('Experiment')
-plt.title('Transformer Model')
+plt.title('TransORCA')
 plt.xticks([-2, -1, 0, 1, 2])
 plt.yticks([-2, -1, 0, 1, 2])
 plt.xlim(-2, 2)
