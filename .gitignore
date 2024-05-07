@@ -2,3 +2,4 @@ selene/
 models/
 resources/
 __pycache__/
+train/png/
